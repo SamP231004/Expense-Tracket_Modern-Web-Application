@@ -1,3 +1,65 @@
+/* ****************************************************************************************** */
+
 body {
-    background-color: black;
+    background-color: rgb(19 19 19);
+    font-family: "Kode Mono", serif;
 }
+
+/* ****************************************************************************************** */
+
+.navbar {
+    width: 98vw;
+    height: 7vh;
+    /* background-color: red; */
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+    align-items: center;
+    gap: 5vw;
+}
+
+/* ****************************************************************************************** */
+
+.logo {
+    /* background-color: purple; */
+    color: white;
+    padding: 10px 15px;
+    margin: 0;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+}
+.logo p {
+    margin: 0;
+}
+.logo p:nth-of-type(2) {
+    color: rgb(63 227 117);
+}
+
+/* ****************************************************************************************** */
+
+.tabs {
+    display: flex;
+    gap: 50px;
+}
+.tabs a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+/* ****************************************************************************************** */
+
+.authentication button {
+    /* background:linear-gradient(to right, rgb(59 106 195), rgb(63 227 117)); */
+    background-color: transparent;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 25px;
+    border: 0px solid transparent;
+    font-family: "Kode Mono", serif;
+}
+.signUp {
+    background:linear-gradient(to right, rgb(59 106 195), rgb(63 227 117));
+}
+
+/* ****************************************************************************************** */
