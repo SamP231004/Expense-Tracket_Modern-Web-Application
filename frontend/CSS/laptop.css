@@ -5,6 +5,10 @@ body {
     font-family: "Kode Mono", serif;
     overflow-x: hidden;
 }
+body::-webkit-scrollbar {
+    width: 0px;
+    /* background:linear-gradient(to right, rgb(59 106 195), rgb(63 227 117)); */
+}
 
 /* ****************************************************************************************** */
 
@@ -69,6 +73,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 10px;
+    margin-bottom: 15px;
 }
 
 /* ****************************************************************************************** */
@@ -186,10 +191,146 @@ body {
     top: -345px;
     font-weight: 900;
     color: transparent; 
-    -webkit-text-stroke: 1px white;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
 }
 .hideWord {
     -webkit-text-stroke: 1px transparent;
 }
 
 /* ****************************************************************************************** */
+
+.container2 {
+    /* background-color: red; */
+    height: 100vh;
+    width: 96vw;
+    margin: 0px 1vw;
+}
+
+/* ****************************************************************************************** */
+
+.trust {
+    /* background-color: yellow; */
+    display: flex;
+    align-items: center;
+    gap: 5vw;
+    height: 25vh;
+}
+
+/* ****************************************************************************************** */
+
+.trustLine {
+    /* background-color: purple; */
+    width: 30vw;
+    font-size: 30px;
+    font-weight: 900;
+    text-align: center;
+    color: white;
+}
+.ninety {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    color: rgb(63, 227, 117);;
+    
+}
+.ninety::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+    height: 3px;
+    background-color: rgb(63, 227, 117);
+    z-index: -1; 
+    border-radius: 10px;
+}
+
+/* ****************************************************************************************** */
+
+.trustLogo {
+    /* background-color: purple; */
+    width: 65vw;
+    display: flex;
+    justify-content: space-between;
+}
+.trustLogo div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.trustLogo img {
+    height: 30px;
+    width: 30px;
+    padding: 10px;
+    border-radius: 100%;
+    filter: invert(100%);
+    background: linear-gradient(to right, rgb(196, 149, 60), rgb(192, 28, 138));
+}
+.trustLogo p {
+    font-size: medium;
+    font-weight: bolder;
+    color: white;
+}
+
+/* ****************************************************************************************** */
+
+.different {
+    /* background-color: purple; */
+    height: 75vh;
+    width: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 5vh;
+}
+
+/* ****************************************************************************************** */
+
+.different1 {
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+}
+.different1 h2 {
+    font-size: xxx-large;
+    margin: 25px 10px 0px 10px;
+    color: white;
+}
+.different1 p {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ****************************************************************************************** */
+
+.different2 {
+    /* background-color: brown; */
+    display: flex;
+    justify-content: space-evenly;
+}
+.differnetLogo {
+    /* background-color: yellow; */
+    width: 24%;
+}
+.differnetLogo img {
+    height: 50px;
+    width: 50px;
+    background-color: #CECECE;
+    padding: 10px;
+    border-radius: 100%;
+    filter: invert(100%)
+}
+.differnetLogo h5 {
+    margin: 15px 0px;
+    font-size: large;
+    color: white;
+}
+.differnetLogo p {
+    color: rgba(255, 255, 255, 0.5);
+}
+.differnetLogo a {
+    color: green;
+    font-weight: 400;
+    text-decoration: none;
+}
