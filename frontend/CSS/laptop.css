@@ -329,7 +329,7 @@ body::-webkit-scrollbar {
 .differnetLogo p {
     color: rgba(255, 255, 255, 0.5);
 }
-.differnetLogo a {
+.differnetLogo a, .cards a {
     color: green;
     font-weight: 400;
     text-decoration: none;
@@ -396,4 +396,72 @@ body::-webkit-scrollbar {
 }
 
 /* ****************************************************************************************** */
+
+.container4 {
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    justify-content: space-evenly;
+    height: 100vh;
+    width: 100vw;
+    color: white;
+}
+
 /* ****************************************************************************************** */
+
+.reason {
+    /* background-color: yellow; */
+    width: 30%
+}
+.reason h3 {
+    margin: 10px 2px;
+    text-align: center;
+    font-size: 35px;
+}
+.reason p {
+    text-align: center;
+    font-size: large;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ****************************************************************************************** */
+
+.cards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+.card {
+    /* background-color: yellow; */
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid whitesmoke;
+    border-radius: 15px;
+}
+.card img {
+    height: 50px;
+    width: 50px;
+    background-color: #363636;
+    padding: 15px;
+    border-radius: 50%;
+}
+.card h4 {
+    margin-bottom: 0;
+    font-size: larger;
+}
+.card p {
+    text-align: center;
+}
+
+#card1 img{
+    background: linear-gradient(to right, rgb(59, 106, 195), rgb(63, 227, 117));
+}
+#card1 {
+    border: 1px solid rgb(63, 227, 117);
+    box-shadow: 0px 0px 5px 1px rgb(63, 227, 117); 
+}
