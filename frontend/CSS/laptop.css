@@ -617,3 +617,15 @@ body::-webkit-scrollbar {
 }
 
 /* ****************************************************************************************** */
+
+.footer {
+    /* background: red; */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 0px 0px 4px;
+    color: rgba(255, 255, 255, 0.8);
+}
+.footer p {
+    margin: 3px;
+}
