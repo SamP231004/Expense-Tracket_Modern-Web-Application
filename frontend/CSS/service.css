@@ -1,0 +1,142 @@
+/* ****************************************************************************************** */
+
+body {
+    background-color: rgb(19 19 19);
+    font-family: "Kode Mono", serif;
+    overflow-x: hidden;
+}
+body::-webkit-scrollbar {
+    width: 0px;
+    /* background:linear-gradient(to right, rgb(59 106 195), rgb(63 227 117)); */
+}
+
+/* ****************************************************************************************** */
+
+.navbar {
+    width: 98vw;
+    height: 7vh;
+    /* background-color: red; */
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+    align-items: center;
+    gap: 5vw;
+}
+
+/* ****************************************************************************************** */
+
+.logo {
+    /* background-color: purple; */
+    color: white;
+    padding: 10px 15px;
+    margin: 0;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+}
+.logo p {
+    margin: 0;
+}
+.logo p:nth-of-type(2) {
+    color: rgb(63 227 117);
+}
+
+/* ****************************************************************************************** */
+
+.tabs {
+    display: flex;
+    gap: 50px;
+}
+.tabs a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+/* ****************************************************************************************** */
+
+.authentication button {
+    /* background:linear-gradient(to right, rgb(59 106 195), rgb(63 227 117)); */
+    background-color: transparent;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 25px;
+    border: 0px solid transparent;
+    font-family: "Kode Mono", serif;
+}
+.signUp {
+    background:linear-gradient(to right, rgb(59 106 195), rgb(63 227 117));
+}
+
+/* ****************************************************************************************** */
+
+.container {
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container h2 {
+    background: linear-gradient(to right, #3b6ac3, #3fe375);
+    font-size: 30px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ****************************************************************************************** */
+
+form {
+    /* background-color: yellow; */
+    display: flex;
+    width: 95%;
+    gap: 2vw;
+    justify-content: space-evenly;
+    padding: 10px;
+    font-weight: bolder;
+    color: white;
+    align-items: center;
+}
+
+/* ****************************************************************************************** */
+
+form div:nth-child(1) select, form div:nth-child(2) input, form div:nth-child(3) select, form div:nth-child(4) input {
+    background: transparent;
+    border: 1px solid rgb(63, 227, 117);
+    box-shadow: 0px 0px 2px .5px rgb(63, 227, 117); 
+    color: whitesmoke;
+    border-radius: 5px;
+    padding: 3px;
+}
+form div:nth-child(1) select option, form div:nth-child(3) select option {
+    color: black;
+}
+form button {
+    /* background-color: transparent; */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 25px;
+    border: 0px solid transparent;
+    font-family: "Kode Mono", serif;
+    background:linear-gradient(to right, rgb(59 106 195), rgb(63 227 117));
+}
+
+/* ****************************************************************************************** */
+
+.container h3 {
+    font-size: x-large;
+    width: 95%;
+    text-align: left;
+    color: white;
+}
+.container table {
+    width: 80%;
+    text-align: center;
+}
+.container table thead {
+    background: linear-gradient(to right, #3b6ac3, #3fe375);
+    font-size: 20px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;  
+}
+.container table tbody {
+    color: white;
+}
