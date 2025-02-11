@@ -97,16 +97,16 @@ document.getElementById('expense-form').addEventListener('submit', function(even
         date: date
     };
 
-    fetch('submit_expense.php', {
+    fetch('http://localhost:8000/backend/submit_expense.php', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
         },
-        body: new URLSearchParams(data)
+        body: JSON.stringify(data)
     })
     .then(response => response.text())
-    .then(data => {
-        alert(data);
+    .then(responseData => {
+        alert(responseData);
         
         const table = document.getElementById('expense-table');
         const row = table.insertRow();
@@ -119,3 +119,4 @@ document.getElementById('expense-form').addEventListener('submit', function(even
     })
     .catch(error => console.error('Error:', error));
 });
+
