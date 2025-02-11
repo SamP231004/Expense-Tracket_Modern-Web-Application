@@ -1,0 +1,75 @@
+/* ****************************************************************************************** */
+
+.authenticationBox {
+    display: none;
+    /* display: flex; */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+/* ****************************************************************************************** */
+
+.authenContainer {
+    /* display: none; */
+    /* height: 25vh; */
+    width: 25vw;
+    background-color: rgb(19 19 19);
+    padding: 30px;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    box-shadow: 0px 0px 5px 1px rgb(59, 106, 195), 0px 0px 15px 4px rgb(63, 227, 117);
+    color: white;
+}
+.authenContainer h2 {
+    background: linear-gradient(to right, #3b6ac3, #3fe375);
+    font-size: 30px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    margin: 0 0 10px 0;
+}
+.authenContainer div{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+}
+.authenContainer input {
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 25px;
+    padding-inline: 10px;
+    height: 5vh;
+    color: white;
+}
+.authenContainer button {
+    color: white;
+    padding: 5px 10px;
+    border-radius: 25px;
+    border: 0px solid transparent;
+    font-family: "Kode Mono", serif;
+    background:linear-gradient(to right, rgb(59 106 195), rgb(63 227 117));
+    margin-top: 7px;
+}
+
+/* ****************************************************************************************** */
+
+.close {
+    height: 0;
+    position: relative;
+    top: -3vh;
+    right: -12vw;
+    font-size: 35px;
+    cursor: pointer;
+}

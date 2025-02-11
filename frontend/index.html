@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="./CSS/index.css">
     <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./CSS/authentication.css">
 </head>
 <body>
     <div class="navbar">
@@ -24,6 +25,22 @@
         <div class="authentication">
             <button class="login">Login</button>
             <button class="signUp">Sign up</button>
+        </div>
+        <div id="authen" class="authenticationBox">
+            <div class="authenContainer">
+                <span class="close">&times</span>
+                <h2 id="authTitle">Login</h2>
+                <div>
+                    <p>Email : </p>
+                    <input type="email" id="email" placeholder="Enter your email">
+                </div>
+                <div>
+                    <p>Password : </p>
+                    <input type="password" id="password" placeholder="Enter your password">
+                </div>
+                <button id="submitAuth">Submit</button>
+                <p id="message"></p>
+            </div>
         </div>
     </div>
     <div class="container">
@@ -184,4 +201,5 @@
         <p>Terms and Condition | Privacy Policy</p>
     </div>
 </body>
+<script src="./JS/main.js"></script>
 </html>
