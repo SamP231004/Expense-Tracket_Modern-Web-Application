@@ -7,29 +7,33 @@ const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const submitButton = document.getElementById('submitAuth');
 const message = document.getElementById('message');
+let logoutButton;
 
 loginButton.addEventListener('click', () => {
-  authenticationBox.style.display = 'flex';
-  authTitle.textContent = 'Login';
+    authenticationBox.style.display = 'flex';
+    authTitle.textContent = 'Login';
+    submitButton.textContent = 'Login';
 });
 
 signUpButton.addEventListener('click', () => {
-  authenticationBox.style.display = 'flex';
-  authTitle.textContent = 'Sign Up';
+    authenticationBox.style.display = 'flex';
+    authTitle.textContent = 'Sign Up';
+    submitButton.textContent = 'Sign Up';
 });
 
 closeButton.addEventListener('click', () => {
-  authenticationBox.style.display = 'none';
-  message.textContent = "";
-  emailInput.value = "";
-  passwordInput.value = "";
+    authenticationBox.style.display = 'none';
+    message.textContent = "";
+    emailInput.value = "";
+    passwordInput.value = "";
 });
 
 submitButton.addEventListener('click', (event) => {
     event.preventDefault();
 
-    const email = emailInput.value;
-    const password = passwordInput.value;
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+    const isSignUp = authTitle.textContent === 'Sign Up';
 
     if (!email || !password) {
         message.textContent = "Please enter both email and password.";
@@ -44,20 +48,31 @@ submitButton.addEventListener('click', (event) => {
         return;
     }
 
-    simulateServerAuthentication(email, password)
+    authenticateUser(email, password, isSignUp)
         .then(response => {
             if (response.success) {
                 message.textContent = "Authentication successful!";
                 message.style.color = "green";
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userEmail', email);
+
                 setTimeout(() => {
                     authenticationBox.style.display = "none";
-                    message.textContent = "";
                     emailInput.value = "";
                     passwordInput.value = "";
                     loginButton.style.display = 'none';
                     signUpButton.style.display = 'none';
+
+                    logoutButton = document.createElement('button');
+                    logoutButton.textContent = 'Logout';
+                    logoutButton.classList.add('logout');
+                    document.querySelector('.authentication').appendChild(logoutButton);
+                    logoutButton.addEventListener('click', logout);
+
+                    loadExpenses(email);
                 }, 2000);
-            } else {
+            } 
+            else {
                 message.textContent = response.message;
                 message.style.color = "red";
             }
@@ -67,56 +82,105 @@ submitButton.addEventListener('click', (event) => {
             message.style.color = "red";
             console.error(error);
         });
-
 });
 
-function simulateServerAuthentication(email, password) {
+function authenticateUser(email, password, isSignUp) {
     return new Promise((resolve) => {
-        setTimeout(() => {
-            if (email === "test@example.com" && password === "password") {
-                resolve({ success: true });
-            } else {
-                resolve({ success: false, message: "Invalid email or password." });
-            }
-        }, 1000);
+        const url = isSignUp
+            ? 'http://localhost:8000/signup.php' 
+            : 'http://localhost:8000/login.php';
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userEmail', email);
+                    resolve(data);
+                } 
+                else {
+                    resolve(data); 
+                }
+            })
+            .catch(error => {
+                resolve({ success: false, message: "Request failed. Please try again." });
+                console.error("Fetch error:", error);
+            });
     });
 }
 
-document.getElementById('expense-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    const type = document.getElementById('type').value;
-    const amount = document.getElementById('amount').value;
-    const category = document.getElementById('category').value;
-    const date = document.getElementById('date').value;
+function logout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userEmail');
+    loginButton.style.display = 'block';
+    signUpButton.style.display = 'block';
+    if (logoutButton) logoutButton.remove();
+    window.location.reload();
+}
 
-    const data = {
-        type: type,
-        amount: amount,
-        category: category,
-        date: date
-    };
+document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+        loginButton.style.display = 'none';
+        signUpButton.style.display = 'none';
 
-    fetch('http://localhost:8000/backend/submit_expense.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.text())
-    .then(responseData => {
-        alert(responseData);
-        
-        const table = document.getElementById('expense-table');
-        const row = table.insertRow();
-        row.insertCell(0).textContent = type;
-        row.insertCell(1).textContent = amount;
-        row.insertCell(2).textContent = category;
-        row.insertCell(3).textContent = date;
-        
-        document.getElementById('expense-form').reset(); 
-    })
-    .catch(error => console.error('Error:', error));
+        logoutButton = document.createElement('button');
+        logoutButton.textContent = 'Logout';
+        logoutButton.classList.add('logout');
+        document.querySelector('.authentication').appendChild(logoutButton);
+        logoutButton.addEventListener('click', logout);
+
+        loadExpenses(localStorage.getItem('userEmail'));
+    }
 });
 
+document.getElementById('expense-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const data = {
+        type: document.getElementById('type').value,
+        amount: document.getElementById('amount').value,
+        category: document.getElementById('category').value,
+        date: document.getElementById('date').value,
+        email: localStorage.getItem('userEmail')
+    };
+
+    console.log("User email from localStorage: ", localStorage.getItem('userEmail'));
+
+    console.log("Data being sent to backend: ", data);
+
+    fetch('http://localhost:8000/submit_expense.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(responseData => {
+            alert(responseData.message);
+            loadExpenses(data.email);
+            document.getElementById('expense-form').reset();
+        })
+        .catch(error => console.error('Error:', error));
+});
+
+function loadExpenses(userEmail) {
+    fetch(`http://localhost:8000/get_expenses.php?email=${userEmail}`)
+        .then(response => response.json())
+        .then(expenses => {
+            const table = document.getElementById('expense-table');
+            table.innerHTML = "";
+            expenses.forEach(expense => {
+                const row = table.insertRow();
+                Object.values(expense).forEach(text => {
+                    const cell = row.insertCell();
+                    cell.textContent = text;
+                });
+            });
+        })
+        .catch(error => console.error("Error loading expenses:", error));
+}

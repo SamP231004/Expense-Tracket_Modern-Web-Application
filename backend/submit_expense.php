@@ -1,7 +1,7 @@
 <?php
-header("Access-Control-Allow-Origin: *"); 
-header("Access-Control-Allow-Methods: POST, OPTIONS"); 
-header("Access-Control-Allow-Headers: Content-Type"); 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -9,43 +9,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit();
 }
 
-$servername = "127.0.0.1";
-$username = "root"; 
-$password = ""; 
-$dbname = "expense_tracker"; 
+require __DIR__ . '/db_connection.php';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$data = json_decode(file_get_contents("php://input"), true);
 
-if ($conn->connect_error) {
-    die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
+error_log("Received data: " . print_r($data, true));
+
+if (!isset($data['email'], $data['type'], $data['amount'], $data['category'], $data['date'])) {
+    echo json_encode(["success" => false, "message" => "Missing required fields", "data" => $data]);
+    exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = json_decode(file_get_contents("php://input"), true);
-    if (!$data) {
-        die(json_encode(["error" => "Invalid JSON input"]));
-    }
+$email = $data['email'];
+$type = $data['type'];
+$amount = $data['amount'];
+$category = $data['category'];
+$date = $data['date'];
 
-    $type = $data['type'];
-    $amount = $data['amount'];
-    $category = $data['category'];
-    $date = $data['date'];
+error_log("Received email: " . $email);
 
-    $stmt = $conn->prepare("INSERT INTO expenses (type, amount, category, date) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("sdss", $type, $amount, $category, $date);
+$stmtUser = $conn->prepare("SELECT id FROM users WHERE email = ?");
+$stmtUser->bind_param("s", $email);
+$stmtUser->execute();
+$stmtUser->bind_result($userId);
+$stmtUser->fetch();
+$stmtUser->close();
 
-    if ($stmt->execute()) {
-        echo json_encode(["message" => "Expense added successfully!"]);
-    } 
-    else {
-        echo json_encode(["error" => "Error: " . $stmt->error]);
-    }
+if (!$userId) {
+    echo json_encode(["success" => false, "message" => "User not found", "userId" => $userId]);
+    exit();
+}
 
-    $stmt->close();
-    $conn->close();
+error_log("User ID retrieved: " . $userId);
+
+$stmt = $conn->prepare("INSERT INTO expenses (user_id, type, amount, category, date) VALUES (?, ?, ?, ?, ?)");
+$stmt->bind_param("isdss", $userId, $type, $amount, $category, $date);
+
+if ($stmt->execute()) {
+    echo json_encode(["success" => true, "message" => "Expense added successfully!"]);
 } 
 else {
-    http_response_code(405);
-    echo json_encode(["error" => "Method Not Allowed"]);
+    echo json_encode(["success" => false, "message" => "Error: " . $stmt->error]);
 }
+
+$stmt->close();
+$conn->close();
 ?>
